@@ -26,7 +26,7 @@ public class ProjectCreateDto {
     private String commentForProjectGoal;
 
     @NotNull(message = "start date is mandatory")
-    private Date startdate;
+    private Date startDate;
 
     @NotNull(message = "planned end date is mandatory")
     private Date plannedEnddate;
@@ -34,13 +34,13 @@ public class ProjectCreateDto {
     private Date actualEnddate;
 
     @JsonCreator
-    public ProjectCreateDto(String projectName, long responsibleEmployeeId, long customerId, String customerContactName, String commentForProjectGoal, Date startdate, Date plannedEnddate, Date actualEnddate) {
+    public ProjectCreateDto(String projectName, long responsibleEmployeeId, long customerId, String customerContactName, String commentForProjectGoal, Date startDate, Date plannedEnddate, Date actualEnddate) {
         this.projectName = projectName;
         this.responsibleEmployeeId = responsibleEmployeeId;
         this.customerId = customerId;
         this.customerContactName = customerContactName;
         this.commentForProjectGoal = commentForProjectGoal;
-        this.startdate = startdate;
+        this.startDate = startDate;
         this.plannedEnddate = plannedEnddate;
         this.actualEnddate = actualEnddate;
     }

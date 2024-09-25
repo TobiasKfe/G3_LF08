@@ -23,7 +23,7 @@ public class ProjectEntity {
     private long customerId;
     private String customerContactName;
     private String commentForProjectGoal;
-    private Date startdate;
+    private Date startDate;
     private Date plannedEnddate;
     private Date actualEnddate;
 }

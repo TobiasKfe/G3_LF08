@@ -2,7 +2,9 @@ package de.szut.lf8_starter.project;
 
 import de.szut.lf8_starter.project.dto.ProjectCreateDto;
 import de.szut.lf8_starter.project.dto.ProjectGetDto;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProjectMapper {
 
     public ProjectGetDto mapToGetDto(ProjectEntity entity){
@@ -12,7 +14,7 @@ public class ProjectMapper {
                 entity.getCustomerId(),
                 entity.getCustomerContactName(),
                 entity.getCommentForProjectGoal(),
-                entity.getStartdate(),
+                entity.getStartDate(),
                 entity.getPlannedEnddate(),
                 entity.getActualEnddate());
     }
@@ -23,7 +25,7 @@ public class ProjectMapper {
         entity.setCustomerId(dto.getCustomerId());
         entity.setCustomerContactName(dto.getCustomerContactName());
         entity.setCommentForProjectGoal(dto.getCommentForProjectGoal());
-        entity.setStartdate(dto.getStartdate());
+        entity.setStartDate(dto.getStartDate());
         entity.setPlannedEnddate(dto.getPlannedEnddate());
         entity.setActualEnddate(dto.getActualEnddate());
         return entity;
