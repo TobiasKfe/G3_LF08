@@ -18,7 +18,7 @@ public class FindProjectByIdIT extends AbstractIntegrationTest {
 
     @Test
     void authorization() throws Exception {
-        this.mockMvc.perform(get("/project/findById?id=1")
+        this.mockMvc.perform(get("/project/1")
                         .with(csrf()))
                 .andExpect(status().isUnauthorized());
     }

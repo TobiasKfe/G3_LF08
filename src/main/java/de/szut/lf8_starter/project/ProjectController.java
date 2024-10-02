@@ -87,12 +87,12 @@ public class ProjectController {
                     content = @Content)})
     @GetMapping("/{id}")
     public ProjectEntity getProjectById(@PathVariable Long id) {
-        if(id == null){
+        ProjectEntity entity = this.service.readById(id);
+        if(entity == null){
             throw new ResourceNotFoundException("ProjectEntity not found on id = " + id);
         } else {
-            return this.service.readById(id);
+            return entity;
         }
-
     }
 }
 
