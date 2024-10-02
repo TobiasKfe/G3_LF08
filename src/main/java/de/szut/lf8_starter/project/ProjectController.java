@@ -82,10 +82,17 @@ public class ProjectController {
             @ApiResponse(responseCode = "400", description = "invalid JSON posted",
                     content = @Content),
             @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "resource not found",
                     content = @Content)})
     @GetMapping("/{id}")
     public ProjectEntity getProjectById(@PathVariable Long id) {
-        return this.service.readById(id);
+        if(id == null){
+            throw new ResourceNotFoundException("ProjectEntity not found on id = " + id);
+        } else {
+            return this.service.readById(id);
+        }
+
     }
 }
 
