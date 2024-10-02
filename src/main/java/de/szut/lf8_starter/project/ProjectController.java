@@ -1,5 +1,6 @@
 package de.szut.lf8_starter.project;
 
+import de.szut.lf8_starter.exceptionHandling.ResourceNotFoundException;
 import de.szut.lf8_starter.project.dto.ProjectCreateDto;
 import de.szut.lf8_starter.project.dto.ProjectGetDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,5 +53,23 @@ public class ProjectController {
         projectEntities.forEach(x -> projectGetDtos.add(this.projectMapper.mapToGetDto(x)));
 
         return projectGetDtos;
+    }
+
+    @Operation(summary = "deletes a Project by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "delete successful"),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "resource not found",
+                    content = @Content)})
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deletePorjectById(@PathVariable long id) {
+        ProjectEntity entity = this.service.readById(id);
+        if (entity == null) {
+            throw new ResourceNotFoundException("ProjectEntity not found on id = " + id);
+        } else {
+            this.service.delete(entity);
+        }
     }
 }
