@@ -34,9 +34,9 @@ public class DeleteProjectIT extends AbstractIntegrationTest {
     @Test
     @WithMockUser(roles = "user")
     void idDoesNotExist() throws Exception {
-        final var contentAsString = this.mockMvc.perform(delete("/hello/5")
+        final var contentAsString = this.mockMvc.perform(delete("/project/5")
                         .with(csrf()))
-                .andExpect(content().string(containsString("HelloEntity not found on id = 5")))
+                .andExpect(content().string(containsString("ProjectEntity not found on id = 5")))
                 .andExpect(status().isNotFound());
     }
 }
