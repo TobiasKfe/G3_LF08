@@ -46,6 +46,14 @@ public class ProjectController {
     }
 
     @Operation(summary = "get all projects")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of Projects",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProjectGetDto.class))}),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "invalid JSON posted",
+                    content = @Content)})
     @GetMapping
     public List<ProjectGetDto> getAll() {
         List<ProjectGetDto> projectGetDtos = new ArrayList<>();
