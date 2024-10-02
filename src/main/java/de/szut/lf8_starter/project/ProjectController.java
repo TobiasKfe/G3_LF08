@@ -64,7 +64,7 @@ public class ProjectController {
                     content = @Content)})
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deletePorjectById(@PathVariable long id) {
+    public void deleteProjectById(@PathVariable long id) {
         ProjectEntity entity = this.service.readById(id);
         if (entity == null) {
             throw new ResourceNotFoundException("ProjectEntity not found on id = " + id);
