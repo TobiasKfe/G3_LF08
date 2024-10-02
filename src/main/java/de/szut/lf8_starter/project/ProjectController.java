@@ -55,7 +55,7 @@ public class ProjectController {
         return projectGetDtos;
     }
 
-    @Operation(summary = "deletes a Hello by id")
+    @Operation(summary = "deletes a Project by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "delete successful"),
             @ApiResponse(responseCode = "401", description = "not authorized",
