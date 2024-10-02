@@ -30,4 +30,18 @@ public class ProjectMapper {
         entity.setActualEnddate(dto.getActualEnddate());
         return entity;
     }
+
+    public ProjectEntity mapGetDtoToEntity(ProjectGetDto dto){
+        var entity = new ProjectEntity();
+        entity.setId(dto.getId());
+        entity.setProjectName(dto.getProjectName());
+        entity.setResponsibleEmployeeId(dto.getResponsibleEmployeeId());
+        entity.setCustomerId(dto.getCustomerId());
+        entity.setCustomerContactName(dto.getCustomerContactName());
+        entity.setCommentForProjectGoal(dto.getCommentForProjectGoal());
+        entity.setStartDate(dto.getStartDate());
+        entity.setPlannedEnddate(dto.getPlannedEnddate());
+        entity.setActualEnddate(dto.getActualEnddate());
+        return entity;
+    }
 }

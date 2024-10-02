@@ -105,5 +105,20 @@ public class ProjectController {
             return entity;
         }
     }
-}
 
+    @Operation(summary = "updates a project")
+    @ApiResponses(value =
+    @ApiResponse(responseCode = "201",
+            description = "created project",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = ProjectGetDto.class)
+            )}
+    )
+    )
+    @PutMapping
+    public ProjectGetDto update(@Valid @RequestBody ProjectGetDto projectGetDto){
+        ProjectEntity newProject = this.projectMapper.mapGetDtoToEntity(projectGetDto);
+        newProject = this.service.update(newProject);
+        return this.projectMapper.mapToGetDto(newProject);
+    }
+}

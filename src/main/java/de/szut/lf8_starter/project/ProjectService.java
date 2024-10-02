@@ -19,4 +19,7 @@ public class ProjectService {
 
     public void delete(ProjectEntity entity) { this.repository.delete(entity); }
 
+    public ProjectEntity update(ProjectEntity newProject) {
+        return this.repository.save(newProject);
+    }
 }
