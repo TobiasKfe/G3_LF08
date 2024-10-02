@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class GetAllProjectsIT extends AbstractIntegrationTest {
     @Test
     void authorization() throws Exception {
-        this.mockMvc.perform(get("/hello/")
+        this.mockMvc.perform(get("/project/")
                         .with(csrf()))
                 .andExpect(status().isUnauthorized());
     }
