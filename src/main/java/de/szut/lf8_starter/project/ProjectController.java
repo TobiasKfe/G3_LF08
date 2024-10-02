@@ -45,6 +45,7 @@ public class ProjectController {
         return this.projectMapper.mapToGetDto(projectEntity);
     }
 
+    @Operation(summary = "get all projects")
     @GetMapping
     public List<ProjectGetDto> getAll() {
         List<ProjectGetDto> projectGetDtos = new ArrayList<>();
