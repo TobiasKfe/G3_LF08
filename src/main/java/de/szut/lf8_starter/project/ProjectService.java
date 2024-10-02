@@ -13,4 +13,8 @@ public class ProjectService {
     public ProjectEntity create(ProjectEntity entity) { return this.repository.save(entity); }
 
     public List<ProjectEntity> getAll() { return this.repository.findAll(); }
+
+    public ProjectEntity readById(long id) { return this.repository.findById(id).orElse(null); }
+
+    public void delete(ProjectEntity entity) { this.repository.delete(entity); }
 }
