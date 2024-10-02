@@ -72,4 +72,27 @@ public class ProjectController {
             this.service.delete(entity);
         }
     }
+
+
+    @Operation(summary = "finds a project by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "delivers project by id",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProjectGetDto.class))}),
+            @ApiResponse(responseCode = "400", description = "invalid JSON posted",
+                    content = @Content),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "resource not found",
+                    content = @Content)})
+    @GetMapping("/{id}")
+    public ProjectEntity getProjectById(@PathVariable Long id) {
+        ProjectEntity entity = this.service.readById(id);
+        if(entity == null){
+            throw new ResourceNotFoundException("ProjectEntity not found on id = " + id);
+        } else {
+            return entity;
+        }
+    }
 }
+
