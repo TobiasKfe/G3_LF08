@@ -9,10 +9,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "project")
@@ -41,5 +41,15 @@ public class ProjectController {
         ProjectEntity projectEntity = this.projectMapper.mapCreateDtoToEntity(projectCreateDto);
         projectEntity = this.service.create(projectEntity);
         return this.projectMapper.mapToGetDto(projectEntity);
+    }
+
+    @GetMapping
+    public List<ProjectGetDto> getAll() {
+        List<ProjectGetDto> projectGetDtos = new ArrayList<>();
+
+        List<ProjectEntity> projectEntities = this.service.getAll();
+        projectEntities.forEach(x -> projectGetDtos.add(this.projectMapper.mapToGetDto(x)));
+
+        return projectGetDtos;
     }
 }
