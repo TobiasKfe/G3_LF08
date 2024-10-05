@@ -121,4 +121,5 @@ public class ProjectController {
         newProject = this.service.update(newProject);
         return this.projectMapper.mapToGetDto(newProject);
     }
+
 }
