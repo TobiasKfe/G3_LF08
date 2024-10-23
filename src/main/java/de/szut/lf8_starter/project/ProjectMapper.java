@@ -22,7 +22,8 @@ public class ProjectMapper {
                 entity.getCommentForProjectGoal(),
                 entity.getStartDate(),
                 entity.getPlannedEnddate(),
-                entity.getActualEnddate());
+                entity.getActualEnddate(),
+                entity.getEmployeeIds());
     }
     public ProjectEntity mapCreateDtoToEntity(ProjectCreateDto dto){
         var entity = new ProjectEntity();
@@ -34,6 +35,8 @@ public class ProjectMapper {
         entity.setStartDate(dto.getStartDate());
         entity.setPlannedEnddate(dto.getPlannedEnddate());
         entity.setActualEnddate(dto.getActualEnddate());
+
+        entity.setEmployeeIds(dto.getEmployeeIds());
         return entity;
     }
 

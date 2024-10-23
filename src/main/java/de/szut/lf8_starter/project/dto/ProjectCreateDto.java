@@ -2,11 +2,12 @@ package de.szut.lf8_starter.project.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 public class ProjectCreateDto {
@@ -33,8 +34,18 @@ public class ProjectCreateDto {
 
     private Date actualEnddate;
 
+    private List<Long> employeeIds;
+
     @JsonCreator
-    public ProjectCreateDto(String projectName, long responsibleEmployeeId, long customerId, String customerContactName, String commentForProjectGoal, Date startDate, Date plannedEnddate, Date actualEnddate) {
+    public ProjectCreateDto(String projectName,
+                            long responsibleEmployeeId,
+                            long customerId,
+                            String customerContactName,
+                            String commentForProjectGoal,
+                            Date startDate,
+                            Date plannedEnddate,
+                            Date actualEnddate,
+                            List<Long> employeeIds) {
         this.projectName = projectName;
         this.responsibleEmployeeId = responsibleEmployeeId;
         this.customerId = customerId;
@@ -43,5 +54,6 @@ public class ProjectCreateDto {
         this.startDate = startDate;
         this.plannedEnddate = plannedEnddate;
         this.actualEnddate = actualEnddate;
+        this.employeeIds = employeeIds;
     }
 }

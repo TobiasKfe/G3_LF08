@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -27,4 +29,7 @@ public class ProjectEntity {
     private Date startDate;
     private Date plannedEnddate;
     private Date actualEnddate;
+    @ElementCollection
+    @CollectionTable(name = "employee_ids")
+    private List<Long> employeeIds;
 }

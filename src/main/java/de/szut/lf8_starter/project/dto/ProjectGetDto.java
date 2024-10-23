@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -24,4 +25,5 @@ public class ProjectGetDto {
     private Date plannedEnddate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date actualEnddate;
+    private List<Long> employeeIds;
 }
