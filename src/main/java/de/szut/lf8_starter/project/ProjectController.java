@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ProjectController {
 
     @Operation(summary = "creates a new project with its id and project information")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "created project",
+            @ApiResponse(responseCode = "200", description = "created project",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProjectGetDto.class))}),
             @ApiResponse(responseCode = "400", description = "invalid JSON posted",
@@ -97,12 +98,14 @@ public class ProjectController {
             @ApiResponse(responseCode = "404", description = "resource not found",
                     content = @Content)})
     @GetMapping("/{id}")
-    public ProjectEntity getProjectById(@PathVariable Long id) {
+    public ProjectGetDto getProjectById(@PathVariable Long id) {
         ProjectEntity entity = this.service.readById(id);
-        if(entity == null){
+        if (entity == null) {
             throw new ResourceNotFoundException("ProjectEntity not found on id = " + id);
         } else {
-            return entity;
+            ProjectGetDto projectGetDto = this.projectMapper.mapToGetDto(entity);
+
+            return projectGetDto;
         }
     }
 }

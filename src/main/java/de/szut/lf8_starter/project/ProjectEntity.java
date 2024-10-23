@@ -1,5 +1,6 @@
 package de.szut.lf8_starter.project;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
