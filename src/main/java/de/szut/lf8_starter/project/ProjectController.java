@@ -159,8 +159,8 @@ public class ProjectController {
     }
 
     @GetMapping("/test")
-    public ResponseEntity<QualificationDto> test(){
-        return qualificationService.getQualificationById(7);
+    public ResponseEntity<QualificationDto> test(@RequestHeader("Authorization") String authorizationHeader){
+        return qualificationService.getQualificationById(7, authorizationHeader);
     }
 
     @Operation(summary = "finds projects by employeeId")
