@@ -11,6 +11,7 @@ public class EmployeeService {
     public EmployeeGetDto getEmployeeById(long id) {
         return this.restTemplate.getForObject(employeeUrl + "/{id}", EmployeeGetDto.class, id);
     }
-    public boolean checkIfEmployeeExists(long id){
-            return true;
+    public boolean checkIfEmployeeExists(long id) {
+        return true;
+    }
 }
