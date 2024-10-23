@@ -16,6 +16,6 @@ public class EmployeeProjectEntity {
     @Id
     @GeneratedValue
     private Long id;
-    private long employeeId;
-    private long projectId;
+    private Long employeeId;
+    private Long projectId;
 }

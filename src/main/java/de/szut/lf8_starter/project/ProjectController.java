@@ -1,5 +1,8 @@
 package de.szut.lf8_starter.project;
 
+import de.szut.lf8_starter.employee.EmployeeProjectEntity;
+import de.szut.lf8_starter.employee.EmployeeProjectService;
+import de.szut.lf8_starter.employee.EmployeeService;
 import de.szut.lf8_starter.exceptionHandling.ResourceNotFoundException;
 import de.szut.lf8_starter.project.dto.ProjectCreateDto;
 import de.szut.lf8_starter.project.dto.ProjectGetDto;
@@ -10,7 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import org.hibernate.annotations.Array;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +26,15 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService service;
+    private final EmployeeService employeeService;
+    private final EmployeeProjectService employeeProjectService;
     private final ProjectMapper projectMapper;
 
-    public ProjectController(ProjectService service, ProjectMapper projectMapper) {
+    public ProjectController(ProjectService service, ProjectMapper projectMapper, EmployeeService employeeService, EmployeeProjectService employeeProjectService) {
         this.service = service;
         this.projectMapper = projectMapper;
+        this.employeeService = employeeService;
+        this.employeeProjectService = employeeProjectService;
     }
 
     @Operation(summary = "creates a new project with its id and project information")
@@ -103,6 +109,25 @@ public class ProjectController {
             throw new ResourceNotFoundException("ProjectEntity not found on id = " + id);
         } else {
             return entity;
+        }
+    }
+
+    @Operation(summary = "deletes a Project by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "delete successful"),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "resource not found",
+                    content = @Content)})
+    @DeleteMapping("/{projectId}/employee/{employeeId}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void RemoveEmployeeFromProject(@PathVariable("projectId") long projectId,
+                                          @PathVariable("employeeId") long employeeId){
+        EmployeeProjectEntity entity = employeeProjectService.getEmployeeProjectByEmployeeIdAndProjectId(employeeId, projectId);
+        if (entity == null) {
+            throw new ResourceNotFoundException("Ressource not found");
+        } else {
+            this.employeeProjectService.delete(entity);
         }
     }
 }
