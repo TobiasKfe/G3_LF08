@@ -2,9 +2,11 @@ package de.szut.lf8_starter.project;
 
 import de.szut.lf8_starter.employee.EmployeeProjectEntity;
 import de.szut.lf8_starter.employee.EmployeeProjectService;
+import de.szut.lf8_starter.employee.EmployeeProjectsResponseDto;
 import de.szut.lf8_starter.employee.EmployeeService;
 import de.szut.lf8_starter.exceptionHandling.ResourceNotFoundException;
 import de.szut.lf8_starter.project.dto.ProjectCreateDto;
+import de.szut.lf8_starter.project.dto.ProjectDetailsGetDto;
 import de.szut.lf8_starter.project.dto.ProjectGetDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -133,5 +135,39 @@ public class ProjectController {
             this.employeeProjectService.delete(entity);
         }
     }
+
+    @Operation(summary = "finds projects by employeeId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "delivers projects by employeeId",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ProjectGetDto.class)))}),
+            @ApiResponse(responseCode = "204", description = "no content available for the given employee id",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "invalid JSON posted",
+                    content = @Content),
+            @ApiResponse(responseCode = "401", description = "not authorized",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "resource not found",
+                    content = @Content)})
+    @GetMapping("/employee/{employeeId}/projects")
+    public List<ProjectDetailsGetDto> getProjectsByEmployeeId(@PathVariable Long employeeId) {
+        List<EmployeeProjectEntity> entities = employeeProjectService.getAllProjectsByEmployeeId(employeeId);
+
+        if (entities == null || entities.isEmpty()) {
+           throw new ResourceNotFoundException("Resource not found");
+        }
+
+        // Mappen auf ProjectDetailsGetDto
+        List<ProjectDetailsGetDto> projectDtos = new ArrayList<>();
+        for (EmployeeProjectEntity entity : entities) {
+            ProjectDetailsGetDto dto = projectMapper.mapToDetailsDto(entity);
+            projectDtos.add(dto);
+        }
+
+        return projectDtos;
+    }
+
+
 }
+
 

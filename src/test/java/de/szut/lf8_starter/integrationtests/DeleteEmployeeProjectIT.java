@@ -23,7 +23,7 @@ public class DeleteEmployeeProjectIT extends AbstractIntegrationTest {
     @Test
     @WithMockUser(roles = "user")
     void happyPath() throws Exception{
-        EmployeeProjectEntity stored = employeeProjectRepository.save(new EmployeeProjectEntity(1L, 1L, 1L));
+        EmployeeProjectEntity stored = employeeProjectRepository.save(new EmployeeProjectEntity(1L, 1L, 1L, "Developer"));
 
         final var content = this.mockMvc.perform(
                         delete("/project/" + stored.getProjectId() + "/employee/" + stored.getEmployeeId())

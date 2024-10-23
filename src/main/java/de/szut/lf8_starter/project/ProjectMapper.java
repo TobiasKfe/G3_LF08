@@ -1,12 +1,18 @@
 package de.szut.lf8_starter.project;
 
+import de.szut.lf8_starter.employee.EmployeeProjectEntity;
 import de.szut.lf8_starter.project.dto.ProjectCreateDto;
+import de.szut.lf8_starter.project.dto.ProjectDetailsGetDto;
 import de.szut.lf8_starter.project.dto.ProjectGetDto;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProjectMapper {
 
+    private final ProjectService projectService;
+    public ProjectMapper(ProjectService projectService) {
+        this.projectService = projectService;
+    }
     public ProjectGetDto mapToGetDto(ProjectEntity entity){
         return new ProjectGetDto(entity.getId(),
                 entity.getProjectName(),
@@ -29,5 +35,17 @@ public class ProjectMapper {
         entity.setPlannedEnddate(dto.getPlannedEnddate());
         entity.setActualEnddate(dto.getActualEnddate());
         return entity;
+    }
+
+    public ProjectDetailsGetDto mapToDetailsDto(EmployeeProjectEntity employeeProjectEntity) {
+        ProjectEntity projectEntity = projectService.readById(employeeProjectEntity.getProjectId());
+
+        return new ProjectDetailsGetDto(
+                projectEntity.getId(),
+                projectEntity.getProjectName(),
+                projectEntity.getStartDate(),
+                projectEntity.getPlannedEnddate(),
+                employeeProjectEntity.getQualification()
+        );
     }
 }
