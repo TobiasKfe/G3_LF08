@@ -18,4 +18,5 @@ public class EmployeeProjectEntity {
     private Long id;
     private Long employeeId;
     private Long projectId;
+    private String qualification;
 }
