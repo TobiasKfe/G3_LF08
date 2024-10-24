@@ -4,31 +4,23 @@ import de.szut.lf8_starter.employee.EmployeeGetDto;
 
 public class QualificationDto {
 
-    private long skillId;
-    private String skillName;
-    private EmployeeGetDto[] employees;
+    private long id;
+    private String skill;
 
-    public long getSkillId() {
-        return skillId;
+    public long getId() {
+        return id;
     }
 
-    public void setSkillId(long skillId) {
-        this.skillId = skillId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getSkillName() {
-        return skillName;
+    public String getSkill() {
+        return skill;
     }
 
-    public void setSkillName(String skillName) {
-        this.skillName = skillName;
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 
-    public EmployeeGetDto[] getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(EmployeeGetDto[] employees) {
-        this.employees = employees;
-    }
 }

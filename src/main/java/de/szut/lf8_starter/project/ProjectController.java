@@ -4,12 +4,14 @@ import de.szut.lf8_starter.employee.EmployeeProjectEntity;
 import de.szut.lf8_starter.employee.EmployeeProjectService;
 import de.szut.lf8_starter.employee.EmployeeProjectsResponseDto;
 import de.szut.lf8_starter.employee.EmployeeService;
+import de.szut.lf8_starter.employee.*;
 import de.szut.lf8_starter.exceptionHandling.ResourceNotFoundException;
 import de.szut.lf8_starter.project.dto.ProjectCreateDto;
 import de.szut.lf8_starter.project.dto.ProjectDetailsGetDto;
 import de.szut.lf8_starter.project.dto.ProjectGetDto;
 import de.szut.lf8_starter.qualification.QualificationDto;
 import de.szut.lf8_starter.qualification.QualificationService;
+import de.szut.lf8_starter.qualification.QualificationValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,6 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -36,19 +39,22 @@ public class ProjectController {
     private final EmployeeProjectService employeeProjectService;
     private final ProjectMapper projectMapper;
     private final QualificationService qualificationService;
+    private final QualificationValidator qualificationValidator = new QualificationValidator();
+    private final EmployeeValidator employeeValidator;
 
     public ProjectController(ProjectService service,
                              ProjectMapper projectMapper,
                              QualificationService qualificationService,
                              EmployeeService employeeService,
-                             EmployeeProjectService employeeProjectService
-                             )
+                             EmployeeProjectService employeeProjectService,
+                             EmployeeValidator employeeValidator)
     {
         this.service = service;
         this.projectMapper = projectMapper;
         this.employeeService = employeeService;
         this.employeeProjectService = employeeProjectService;
         this.qualificationService = qualificationService;
+        this.employeeValidator = employeeValidator;
     }
 
     @Operation(summary = "creates a new project with its id and project information")
@@ -155,13 +161,13 @@ public class ProjectController {
     })
     @PostMapping("/{projectId}/{qualificationId}/{employeeId}")
     public void assignAnEmployeeToAProjectWithSpecificQualification(@PathVariable long pId,@PathVariable long qId,@PathVariable long eId) {
-        return ;
+
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<QualificationDto> test(@RequestHeader("Authorization") String authorizationHeader){
-        return qualificationService.getQualificationById(7, authorizationHeader);
-    }
+//    @GetMapping("/test")
+//    public boolean test(@RequestHeader("Authorization") String authorizationHeader){
+//        return employeeValidator.doesEmployeeExist(298, authorizationHeader);
+//    }
 
     @Operation(summary = "finds projects by employeeId")
     @ApiResponses(value = {
