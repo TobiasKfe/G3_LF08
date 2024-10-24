@@ -24,6 +24,13 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -164,11 +171,6 @@ public class ProjectController {
 
     }
 
-//    @GetMapping("/test")
-//    public boolean test(@RequestHeader("Authorization") String authorizationHeader){
-//        return employeeValidator.doesEmployeeExist(298, authorizationHeader);
-//    }
-
     @Operation(summary = "finds projects by employeeId")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "delivers projects by employeeId",
@@ -199,6 +201,10 @@ public class ProjectController {
 
         return projectDtos;
     }
+
+    @GetMapping("/testSkillset/{id}")
+    public boolean testSkillset(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader){
+        return employeeValidator.isSkillsetValid(id, authorizationHeader);}
 
 
 @GetMapping("/test/{id}")

@@ -1,5 +1,7 @@
 package de.szut.lf8_starter.employee;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -7,7 +9,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -35,10 +39,34 @@ public class EmployeeValidator {
         return false;
     }
 
+    public boolean isSkillsetValid(long skillId, @RequestHeader("Authorization") String authorizationHeader) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authorizationHeader);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-//    public static void main(String[] args) {
-//        System.out.println(doesEmployeeExist(1));
-//    }
+        String urlQ = "https://employee.szut.dev/qualifications";
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(urlQ, HttpMethod.GET, entity, String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                JSONArray qualificationsArray = new JSONArray(response.getBody());
+
+                for (int i = 0; i < qualificationsArray.length(); i++) {
+                    JSONObject qualification = qualificationsArray.getJSONObject(i);
+                    if (qualification.getLong("id") == skillId) {
+                        return true; // Skill ID exists
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error occurred: " + e.getMessage());
+        }
+
+        return false;
+    }
 }
 
 

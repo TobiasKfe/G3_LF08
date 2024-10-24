@@ -14,6 +14,10 @@ GET http://localhost:8080/project/test/298
 Authorization: Bearer {{bearerToken}}
 
 ###
+GET http://localhost:8080/project/testSkillset/8
+Authorization: Bearer {{bearerToken}}
+
+###
 GET https://employee.szut.dev/qualifications
 Authorization: Bearer {{bearerToken}}
 
