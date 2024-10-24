@@ -1,5 +1,6 @@
 package de.szut.lf8_starter.employee;
 
+import de.szut.lf8_starter.security.KeyCloakTokenService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;
@@ -22,9 +23,9 @@ public class EmployeeValidator {
     private final String url = "https://employee.szut.dev/employees";
 
 
-    public boolean doesEmployeeExist(long id, @RequestHeader("Authorization") String authorizationHeader) {
+    public boolean doesEmployeeExist(long id) throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", authorizationHeader);
+        headers.set("Authorization", "Bearer " + KeyCloakTokenService.getKeycloakToken());
         HttpEntity<Void> entity = new HttpEntity<>(headers);
         try {
             ResponseEntity<String> result = restTemplate.exchange(url + "/" + id, HttpMethod.GET, entity, String.class);
@@ -39,10 +40,10 @@ public class EmployeeValidator {
         return false;
     }
 
-    public boolean isSkillsetValid(long skillId, @RequestHeader("Authorization") String authorizationHeader) {
+    public boolean isSkillsetValid(long skillId) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", authorizationHeader);
+        headers.set("Authorization", "Bearer " + KeyCloakTokenService.getKeycloakToken());
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
         String urlQ = "https://employee.szut.dev/qualifications";

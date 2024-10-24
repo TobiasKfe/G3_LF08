@@ -12,6 +12,7 @@ import de.szut.lf8_starter.project.dto.ProjectGetDto;
 import de.szut.lf8_starter.qualification.QualificationDto;
 import de.szut.lf8_starter.qualification.QualificationService;
 import de.szut.lf8_starter.qualification.QualificationValidator;
+import de.szut.lf8_starter.security.KeyCloakTokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -203,13 +204,17 @@ public class ProjectController {
     }
 
     @GetMapping("/testSkillset/{id}")
-    public boolean testSkillset(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader){
-        return employeeValidator.isSkillsetValid(id, authorizationHeader);}
+    public boolean testSkillset(@PathVariable long id) throws Exception {
+        return employeeValidator.isSkillsetValid(id);}
 
 
-@GetMapping("/test/{id}")
-public boolean test(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader){
-        return employeeValidator.doesEmployeeExist(id, authorizationHeader);}
+    @GetMapping("/test/{id}")
+    public boolean test(@PathVariable long id) throws Exception {
+        return employeeValidator.doesEmployeeExist(id);}
+
+    @GetMapping("/testToken")
+    public String testToken() throws Exception {
+        return KeyCloakTokenService.getKeycloakToken();}
 }
 
 

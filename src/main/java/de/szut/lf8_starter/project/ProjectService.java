@@ -3,7 +3,6 @@ package de.szut.lf8_starter.project;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProjectService {
@@ -19,5 +18,5 @@ public class ProjectService {
 
     public void delete(ProjectEntity entity) { this.repository.delete(entity); }
 
-
+    public void update(ProjectEntity entity) { repository.save(entity);}
 }
