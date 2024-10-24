@@ -201,6 +201,9 @@ public class ProjectController {
     }
 
 
+@GetMapping("/test/{id}")
+public boolean test(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader){
+        return employeeValidator.doesEmployeeExist(id, authorizationHeader);}
 }
 
 
